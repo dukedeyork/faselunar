@@ -1,0 +1,175 @@
+/* Centrar el reloj en la página */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Altura mínima de la ventana */
+    margin: 0;
+    background: #a1a1a1;
+background: linear-gradient(0deg,rgba(161, 161, 161, 1) 0%, rgba(184, 184, 184, 1) 51%, rgba(79, 79, 79, 1) 100%);
+}
+
+
+
+/* El Dial (Fondo del Reloj) */
+.dial {
+    position: relative; /* Esencial para posicionar las manecillas y subdiales */
+    width: 600px;  /* Ancho especificado: 600px */
+    height: 800px; /* Alto especificado: 800px */
+    background-image: url('iwc-oro-compliaciones.png'); /* 🖼️ **Asegúrate de cambiar esto al nombre de tu imagen de dial** */
+    background-size: cover; /* Ajusta la imagen para cubrir el contenedor */
+    background-position: center;
+}
+
+/* Estilo común para todas las manecillas principales */
+.dial > div {
+    position: absolute;
+    /* Punto de pivote: Centro del dial (300px, 400px) */
+    top: 400px;
+    left: 300px;
+    transform-origin: bottom center; /* El punto de rotación estará en la base de la manecilla */
+    z-index: 10;
+    /* Por defecto, apunta hacia arriba (12 en punto) sin rotación */
+    transform: translate(-50%, -100%) rotate(0deg); 
+}
+
+/* Manecillas principales */
+.hora {
+    width: 12px;
+    height: 141px;
+    background-image: url('aguja-hora.png');
+    z-index: 12;
+}
+
+.minuto {
+    width: 12px;
+    height: 182px;
+    background-image: url('aguja-minuto.png');
+    z-index: 11;
+}
+
+.segundo {
+    width: 5px;
+    height: 188px;
+    background-image: url('aguja-segundo.png');
+    z-index: 13;
+}
+
+/* Punto central (opcional) */
+.dial::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #6B1515;
+    background: radial-gradient(circle, rgb(255, 255, 255) 8%, rgb(107, 21, 21) 13%, rgba(107, 21, 21, 1) 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+
+
+/* Contenedor general para posicionar los subdiales (dentro del dial) */
+.subdiales-contenedor {
+    position: absolute;
+    width: 100%; 
+    height: 100%;
+    z-index: 1;
+}
+
+/* Estilo común para todos los subdiales */
+.subdial {
+    position: absolute;
+    width: 120px; /* Tamaño */
+    height: 120px;
+    border-radius: 50%; 
+    /* Para centrar el indicador */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Oculta el indicador si se sale del círculo */
+    z-index: 4;
+}
+
+/* 📍 Posicionamiento de los Subdiales (Ajustado para 9, 3, 6) */
+/* Ancho del dial: 600px. Alto del dial: 800px. Centro: (300, 400) */
+/* Los subdiales tienen 120px de ancho/alto. */
+
+/* Día de la Semana ("9 en punto") */
+.dia-semana {
+    /* 300 (centro x) - 150 (radio de la esfera) - 60 (mitad del subdial) = 90px desde la izquierda */
+    top: 740px; /* 400 (centro y) - 60 (mitad del subdial) = 340px */
+    left: 150px;
+}
+
+/* Fecha ("3 en punto") */
+.mes {
+    /* 300 (centro x) + 150 (radio de la esfera) - 60 (mitad del subdial) = 390px desde la derecha, o 390px desde la izquierda */
+    top: 830px; /* 400 (centro y) - 60 (mitad del subdial) = 340px */
+    left: 240px; /* Usar right: 90px para ser simétrico con left: 90px */
+}
+
+/* Mes ("6 en punto") */
+.fecha {
+    /* 300 (centro x) - 60 (mitad del subdial) = 240px desde la izquierda */
+    left: 330px;
+    top: 740px;
+    /* 400 (centro y) + 200 (distancia del centro a la posición 6) - 60 (mitad del subdial) = 540px */
+}
+
+
+/* Estilo del indicador dentro de los subdiales */
+.subdial .indicador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px; 
+    height: 39px; /* Más corto que la mitad (60px) para que encaje bien */
+    background-image: url('aguja-sub-dial.png'); /* 🖼️ **Usar tu imagen personalizada aquí** */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-color: transparent; /* Asegúrate de que no haya color de fondo sólido */
+    
+
+    /* Configuración de Rotación (Igual que las manecillas principales) */
+    transform-origin: bottom center; 
+    transform: translate(-50%, -100%) rotate(0deg); 
+    z-index: 5;
+}
+
+/* Punto central (opcional) */
+.subdial::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #6B1515;
+    background: radial-gradient(circle, rgb(255, 255, 255) 8%, rgb(143, 101, 24) 13%, rgb(167, 132, 18) 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+
+/* 🗓️ NUEVO: Estilo del Display del Año */
+.display-ano {
+    position: absolute;
+    /* Posicionar a la derecha del subdial del mes (.mes: left: 240px, top: 830px) */
+    top: 867px; 
+    left: 200px; /* A la derecha del subdial del mes */
+    width: 33px; 
+    height: 14px;
+    line-height: 20px; /* Para centrar verticalmente el texto */
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333; /* Color del texto */
+    z-index: 5;
+}
