@@ -1,0 +1,1 @@
+Ejercicio de aprendizaje en html, css y js. Se buscó crear un reloj analógico funcional que muestre la fecha, dia de la semana, mes y año dentro del cuadrante del reloj, con la ayuda de sub-diales. Se usaron imagenes en formato PNG para la construccion de los fondos y de las gujas del reloj.
